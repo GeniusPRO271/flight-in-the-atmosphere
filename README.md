@@ -22,6 +22,11 @@ In conclusion, the Python code for simulating the flight of a Boeing 727 aeropla
   # Clone the repo
   git clone https://github.com/GeniusPRO271/Flight-in-the-atmosphere
   
-  # Navigate to clonned folder and Install dependencies rememeber to have intalled numpy and matplotlib
+  # Navigate to clonned folder and Install dependencies
+  pip install numpy 
+  pip install matplotlib
+  
+  # Run it
   python3 main.py
+  
 ```
