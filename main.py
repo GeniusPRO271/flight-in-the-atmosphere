@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-# Constants for Boeing 727
+# Constants of objects
 g = 9.81  # m/s^2
 rho = 1.2  # kg/m^3
 Cd_baseball = 0.47
