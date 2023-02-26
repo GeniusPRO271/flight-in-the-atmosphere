@@ -15,3 +15,13 @@ The simulation provides a basic model of the flight of a Boeing 727 aeroplane, t
 ### Conclusion
 
 In conclusion, the Python code for simulating the flight of a Boeing 727 aeroplane provides a useful tool for understanding the basic physics of flight and the factors that affect it. However, the simulation is limited in its scope and should not be relied upon for actual flight simulations. Further research and development are necessary to create more accurate and realistic simulations that take into account all the relevant factors affecting flight.
+
+## Installation
+#### 1.  Clone and Install
+```bash
+  # Clone the repo
+  git clone https://github.com/GeniusPRO271/Flight-in-the-atmosphere
+  
+  # Navigate to clonned folder and Install dependencies rememeber to have intalled numpy and matplotlib
+  python3 main.py
+```
