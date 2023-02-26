@@ -8,6 +8,9 @@ rho = 1.2  # kg/m^3
 Cd_baseball = 0.47
 Cd_basketball = 0.44
 Cd_football = 0.45
+Cl_baseball = 0.18
+Cl_basketball = 0.1
+Cl_football = 0.13
 A_baseball = 0.0034  # m^2
 A_basketball = 0.0248  # m^2
 A_football = 0.0387  # m^2
@@ -19,6 +22,9 @@ v0_basketball = 22.2  # m/s
 v0_football = 24.6  # m/s
 theta = np.pi / 4  # radians
 dt = 0.1  # s
+#dt = 0.01  # s
+#dt = 0.001  # s
+#dt = 0.0001  # s
 t_max = 20  # s
 v_max = 500
 
@@ -66,7 +72,8 @@ for i, t in enumerate(ts):
         if v_baseball > v_max:
             v_baseball = v_max
         F_air_baseball = -0.5 * rho * v_baseball**2 * Cd_baseball * A_baseball
-        F_net_baseball = F_air_baseball - F_gravity_baseball
+        F_lift_baseball = 0.5 * rho * v_baseball ** 2 * Cl_baseball * A_baseball
+        F_net_baseball = F_lift_baseball + F_air_baseball - F_gravity_baseball
         a_baseball = F_net_baseball / m_baseball
 
         # Update velocity and position
@@ -88,14 +95,15 @@ for i, t in enumerate(ts):
         if v_basketball > v_max:
             v_basketball = v_max
         F_air_basketball = -0.5 * rho * v_basketball ** 2 * Cd_basketball * A_basketball
-        F_net_basketball = F_air_basketball - F_gravity_basketball
+        F_lift_basketball = 0.5 * rho * v_basketball ** 2 * Cl_basketball * A_basketball
+        F_net_basketball = F_lift_basketball + F_air_basketball - F_gravity_basketball
         a_basketball = F_net_basketball / m_basketball
 
         # Update velocity and position
         vx_basketball = vx_basketball + a_basketball * np.cos(theta) * dt
         vy_basketball = vy_basketball + a_basketball * np.sin(theta) * dt
         x_basketball = x_basketball + vx_basketball * dt
-        y_basketball = y_basketball+ vy_basketball * dt
+        y_basketball = y_basketball + vy_basketball * dt
 
         # Store data
         xs_basketball.append(x_basketball)
@@ -110,7 +118,8 @@ for i, t in enumerate(ts):
         if v_football > v_max:
             v_football = v_max
         F_air_football = -0.5 * rho * v_football ** 2 * Cd_football * A_football
-        F_net_football = F_air_football- F_gravity_football
+        F_lift_football = 0.5 * rho * v_football ** 2 * Cl_football * A_football
+        F_net_football = F_lift_football + F_air_football - F_gravity_football
         a_football = F_net_football / m_football
 
         # Update velocity and position
@@ -146,19 +155,21 @@ vys_football = np.array(vys_football)
 
 # Plot data
 fig, ax = plt.subplots(nrows=2, ncols=1, figsize=(8, 10))
-ax[0].plot(ts[:len(xs_basketball)], xs_basketball, label="Basketball")
-ax[0].plot(ts[:len(xs_baseball)], xs_baseball, label="Baseball")
-ax[0].plot(ts[:len(xs_football)], xs_football, label="Football")
+ax[0].plot(ts[:len(xs_basketball)], xs_basketball, label='Basketball')
+ax[0].plot(ts[:len(xs_baseball)], xs_baseball, label='Baseball')
+ax[0].plot(ts[:len(xs_football)], xs_football, label='Football')
 ax[0].set_xlabel('Time (s)')
-ax[0].set_ylabel('Height (m) dt = 0.00001')
+ax[0].set_ylabel('Height (m)')
 ax[0].grid()
+ax[0].legend()
 
 ax[1].plot(ts[:len(ys_basketball)], ys_basketball, label="Basketball")
 ax[1].plot(ts[:len(ys_baseball)], ys_baseball, label="Baseball")
 ax[1].plot(ts[:len(ys_football)], ys_football, label="Football")
 ax[1].set_xlabel('Time (s)')
-ax[1].set_ylabel('Distance (m) dt = 0.00001')
+ax[1].set_ylabel('Distance (m)')
 ax[1].grid()
+ax[1].legend()
 
 # Create separate tables for each object
 basketball_data = {
